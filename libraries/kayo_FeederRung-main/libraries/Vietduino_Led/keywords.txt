@@ -1,0 +1,6 @@
+# Datatypes (KEYWORD1)
+# Methods and Functions (KEYWORD2)
+# Constants (LITERAL1)
+
+Vietduino_Led	KEYWORD1
+write	KEYWORD2
