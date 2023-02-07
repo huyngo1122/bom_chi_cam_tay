@@ -31,6 +31,13 @@ doi voi ULN2003 1 vong quay se can 2038 buoc
 #define set_step -20380
 // lùi lại 3 vòng(đối với động cơ ULN2003)
 #define back_value_end_step -6114
+// gia tốc khi quay thuận
+#define MaxSpeed_forwards 300.0
+#define Acceleration_forwards 200.0
+// gia tốc khi quay ngược
+#define MaxSpeed_backwards 500.0
+#define Acceleration_backwards 500.0
+
 // Define some steppers and the pins the will use
 // AccelStepper stepper1; // Defaults to AccelStepper::FULL4WIRE (4 pins) on 2, 3, 4, 5
 // AccelStepper stepper2(AccelStepper::FULL4WIRE, 6, 7, 8, 9);
@@ -54,8 +61,8 @@ void pressStart()
 {
 
   step_value = set_step;
-  stepper3.setMaxSpeed(300.0);     // TOC do toi da cho phep
-  stepper3.setAcceleration(200.0); // gia toc so cang lon gia toc cang nhanh
+  stepper3.setMaxSpeed(MaxSpeed_forwards);     // TOC do toi da cho phep
+  stepper3.setAcceleration(Acceleration_forwards); // gia toc so cang lon gia toc cang nhanh
   stepper3.moveTo(step_value);     // vi tri doi voi uln2003 1 vong quay se can 2038 buoc
 
   // HUY_DEBUG("currentPos:    ");
@@ -76,8 +83,8 @@ void pressStop()
 {
 
   HUY_DEBUG_LN(stepper3.currentPosition());
-  stepper3.setMaxSpeed(500.0);     // TOC do toi da cho phep
-  stepper3.setAcceleration(500.0); // gia toc so cang lon gia toc cang nhanh
+  stepper3.setMaxSpeed(MaxSpeed_backwards);     // TOC do toi da cho phep
+  stepper3.setAcceleration(Acceleration_backwards); // gia toc so cang lon gia toc cang nhanh
   if (stepper3.currentPosition() > step_back)
   {
     stepper3.moveTo(-stepper3.currentPosition());
@@ -94,8 +101,8 @@ void doubleClick()
   // khi không sử dụng nữa thì nhấn double click dể trả lại giá trị nén trong ống chì,
   // tránh thất thoát chì khong mong muốn
   stepper3.moveTo(stepper3.currentPosition() - back_value_end_step);
-  stepper3.setMaxSpeed(500.0);     // TOC do toi da cho phep
-  stepper3.setAcceleration(500.0); // gia toc so cang lon gia toc cang nhanh
+stepper3.setMaxSpeed(MaxSpeed_backwards);     // TOC do toi da cho phep
+  stepper3.setAcceleration(Acceleration_backwards); // gia toc so cang lon gia toc cang nhanh
 
 } // doubleClick
 void setup()
